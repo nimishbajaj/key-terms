@@ -36,6 +36,8 @@ def getKeyTerms(text):
                term in doc._.phrases]
 
     for p in phrases:
-        keyWordToScore[str(p[0])] = p[1]
+        keyWordToScore[str(p[0])] = (p[1], nlp(p[0].lower()).vector)
 
-    return jsonify(([p[0] for p in phrases], keyWordToScore))
+    response = {}
+    response["dict"] = keyWordToScore
+    return jsonify(response)
